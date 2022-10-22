@@ -1,0 +1,53 @@
+version: "3.7"
+services:
+    api:
+      build:
+        context: ./
+      container_name: aspire-test
+      restart: always
+      user: root
+      environment:
+        - WEB_ALIAS_DOMAIN=local.thienantrading.com.vn local.kuku.vn local.kinderkraft.vn local.gold.vn
+        - WEB_DOCUMENT_ROOT=/app/public
+        - PHP_DATE_TIMEZONE=UTC
+        - PHP_DISPLAY_ERRORS=1
+        - PHP_MEMORY_LIMIT=2048M
+        - PHP_MAX_EXECUTION_TIME=180000
+        - PHP_POST_MAX_SIZE=500M
+        - PHP_UPLOAD_MAX_FILESIZE=1024M
+        - XDEBUG_REMOTE_CONNECT_BACK=1
+        - XDEBUG_REMOTE_AUTOSTART=1
+        - XDEBUG_REMOTE_PORT=9000
+        - XDEBUG_MAX_NESTING_LEVEL=500
+        - XDEBUG_IDE_KEY=PHPSTORM
+
+      volumes:
+        # - /home/huytt/working/source/g1-be/src:/app:cached
+        # - /home/huytt/working/source/g1mart_multistore/src:/app:cached
+        - ./:/app:cached
+      ports:
+              #          - "8080:8080"
+        - "80:80"
+        - "443:443"
+      links:
+        - redis
+        - db
+    db:
+      image: mysql:8.0
+      restart: always
+      container_name: mysql
+      command: --default-authentication-plugin=mysql_native_password
+      environment:
+        MYSQL_ROOT_PASSWORD: geopacket
+      ports:
+        - '3306:3306'
+      volumes:
+        - mysql_data:/var/lib/mysql
+    redis:
+      container_name: redis
+      restart: always
+      image: redis
+      expose:
+        - "6379"
+volumes:
+  mysql_data:
