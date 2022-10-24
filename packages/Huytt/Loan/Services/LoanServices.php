@@ -1,6 +1,7 @@
 <?php
 namespace Huytt\Loan\Services;
 
+use Huytt\Core\Repository\Criteria\RequestCriteria;
 use Huytt\Loan\Http\Requests\LoanCreateRequest;
 use Huytt\Loan\Repositories\LoanRepository;
 use Huytt\Loan\Repositories\ScheduledPaymentsRepository;
@@ -11,11 +12,16 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Prettus\Repository\Exceptions\RepositoryException;
 use Prettus\Validator\Exceptions\ValidatorException;
 use Symfony\Component\HttpFoundation\Response;
 
 class LoanServices
 {
+    protected $with = [
+        'scheduledPayments'
+    ];
+
     /** @var LoanRepository */
     protected $loanRepo;
 
@@ -68,5 +74,17 @@ class LoanServices
             DB::rollBack();
             throw $e;
         }
+    }
+
+    /**
+     * @return LengthAwarePaginator|Collection|mixed
+     * @throws RepositoryException
+     */
+    public function meList(): mixed
+    {
+        $params = request()->input();
+        $perPage = isset($params['limit']) && ! empty($params['limit']) ? $params['limit'] : 50;
+        $this->loanRepo->pushCriteria(app(RequestCriteria::class));
+        return $this->loanRepo->meList($this->with)->paginate($perPage);
     }
 }

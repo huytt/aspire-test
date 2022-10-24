@@ -39,24 +39,19 @@ class LoanController extends Controller
                 'id' => $loan->id
             ], 'Loan created successfully');
         } catch (\Exception $e) {
-            dd($e->getCode(), $e->getMessage());
             return core()->error($e->getCode(), $e->getCode(), $e->getMessage());
         }
 
     }
 
-//    /**
-//     * Display a listing of the resource.
-//     *
-//     * @return JsonResponse
-//     * @throws RepositoryException
-//     */
-//    public function index(): JsonResponse
-//    {
-//        $params = request()->input();
-//        $perPage = isset($params['limit']) && ! empty($params['limit']) ? $params['limit'] : 50;
-//        $this->repository->pushCriteria(app(RequestCriteria::class));
-//
-//        return response()->json(new BaseCoreCollection($this->repository->skipCache()->paginate($perPage)));
-//    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return JsonResponse
+     * @throws RepositoryException
+     */
+    public function meList(): JsonResponse
+    {
+        return core()->success(Response::HTTP_OK, new BaseCoreCollection($this->loanService->meList()));
+    }
 }

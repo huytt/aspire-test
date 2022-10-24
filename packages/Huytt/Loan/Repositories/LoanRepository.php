@@ -11,4 +11,15 @@ class LoanRepository extends Repository
     {
         return Loan::class;
     }
+
+    /**
+     * @param array $with
+     * @return LoanRepository
+     */
+    public function meList($with = []): LoanRepository
+    {
+        return $this->with($with)->scopeQuery(function ($query) {
+            return $query->where('user_id', auth()->user()->id);
+        });
+    }
 }

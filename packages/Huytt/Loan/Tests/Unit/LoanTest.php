@@ -35,7 +35,7 @@ class LoanTest extends TestCase
         ];
 
         $reponse = $this
-            ->json('post', 'api/v1/loans/store', $payload);
+            ->json('post', 'api/v1/loans/me/store', $payload);
 
         $reponse->assertStatus(401);
 
@@ -43,7 +43,7 @@ class LoanTest extends TestCase
 
         $reponse = $this
             ->withHeader('Authorization', 'Bearer '. $token)
-            ->json('post', 'api/v1/loans/store', $payload);
+            ->json('post', 'api/v1/loans/me/store', $payload);
 
         echo json_encode($reponse)."\n";
         $reponse->assertStatus(201);
@@ -54,5 +54,37 @@ class LoanTest extends TestCase
         $this->assertEquals(3, count($loan->scheduledPayments));
 
         return array_merge($payload, ['id' => $id]);
+    }
+
+    public function testMeList() {
+        $this->testStore();
+
+        $reponse = $this
+            ->json('get', 'api/v1/loans/me/list');
+
+//        echo json_encode($reponse)."\n";
+        $reponse->assertStatus(200);
+        $reponse->assertJsonStructure([
+            'data' => [
+                'items' => [
+                    [
+                        'id',
+                        'user_id',
+                        'amount',
+                        'term',
+                        'status',
+                        'frequency',
+                        'scheduled_payments' => [
+                            [
+                                'id',
+                                'loan_id',
+                                'amount',
+                                'amount_paid'
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]);
     }
 }
