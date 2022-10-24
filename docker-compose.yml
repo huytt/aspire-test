@@ -24,7 +24,7 @@ services:
       volumes:
         # - /home/huytt/working/source/g1-be/src:/app:cached
         # - /home/huytt/working/source/g1mart_multistore/src:/app:cached
-        - ./:/app:cached
+        - ./:/app
       ports:
               #          - "8080:8080"
         - "80:80"
