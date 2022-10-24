@@ -20,7 +20,7 @@
 https://github.com/huytt/aspire-test
 
 ## Postman API Documentation
-
+https://github.com/huytt/aspire-test/tree/main/postman
 
 
 ## Features
