@@ -126,6 +126,10 @@ class LoanServices
     public function repayment($scheduleId, $amount): void
     {
         $schedule = $this->scheduledPaymentRepo->getById($scheduleId);
+        if($schedule->status != ScheduledPayment::SCHEDULED_PAYMENT_STATUS_APPROVE) {
+            throw new \Exception('Scheduled repayment must be approve', 400);
+        }
+
         if($schedule->amount > $amount) {
             throw new \Exception('Amount greater or equal to the scheduled repayment', 400);
         }
