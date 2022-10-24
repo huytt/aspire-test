@@ -67,4 +67,41 @@ class Core
     public function correctZeroDate($input) {
         return in_array($input, ['0000-00-00', '0000-00-00 00:00:00']) ? null : $input;
     }
+
+    /**
+     * Build success response
+     * @param string|array $data
+     * @param int $code
+     * @return JsonResponse
+     */
+    public function success(int $code = Response::HTTP_OK, $data = [], string $messageCode = ''): JsonResponse
+    {
+        return response()->json([
+            'success' => true,
+            'data' => (object)$data,
+            'status' => $code,
+            'message' => (object)[
+//                'key' => $messageCode,
+                'message' => ($messageCode) ? __($messageCode) : ''
+            ],
+        ], $code);
+    }
+
+    /**
+     * * Build error response
+     * @param mixed | int $code
+     * @param ?string $messageCode
+     * @return JsonResponse
+     */
+    public function error($code, ?string $messageCode, ?string $message): JsonResponse
+    {
+        return response()->json([
+            'data' => (object)[],
+            'message' => (object)[
+//                'key' => $messageCode,
+                'message' => ($message) ? __($message) : ''
+            ],
+            'status' => $code
+        ], is_numeric($code) ? $code : 400);
+    }
 }

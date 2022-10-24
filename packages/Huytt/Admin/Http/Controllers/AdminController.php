@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Huytt\Core\Http\Transformers\BaseCoreCollection;
 use Huytt\Core\Repository\Criteria\RequestCriteria;
 use Huytt\Admin\Repositories\AdminUserRepository;
-use Huytt\User\Http\Requests\RegisterRequest;
+use Huytt\Admin\Http\Requests\RegisterRequest;
 use Illuminate\Http\JsonResponse;
 use Prettus\Repository\Exceptions\RepositoryException;
 use Symfony\Component\HttpFoundation\Response;

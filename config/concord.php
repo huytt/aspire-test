@@ -12,6 +12,7 @@ return [
         Huytt\Auth\Providers\ModuleServiceProvider::class,
         Huytt\User\Providers\ModuleServiceProvider::class,
         Huytt\Admin\Providers\ModuleServiceProvider::class,
+        Huytt\Loan\Providers\ModuleServiceProvider::class,
     ],
     'register_route_models' => true
 ];
