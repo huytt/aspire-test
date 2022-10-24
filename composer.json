@@ -12,7 +12,8 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "prettus/l5-repository": "^2.8",
-        "tymon/jwt-auth": "*"
+        "tymon/jwt-auth": "*",
+      "ext-http": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -31,7 +32,8 @@
             "Huytt\\Core\\": "packages/Huytt/Core",
             "Huytt\\Auth\\": "packages/Huytt/Auth",
             "Huytt\\User\\": "packages/Huytt/User",
-            "Huytt\\Admin\\": "packages/Huytt/Admin"
+            "Huytt\\Admin\\": "packages/Huytt/Admin",
+            "Huytt\\Loan\\": "packages/Huytt/Loan"
         }
     },
     "autoload-dev": {
