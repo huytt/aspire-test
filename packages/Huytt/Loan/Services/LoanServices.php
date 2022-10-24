@@ -87,4 +87,8 @@ class LoanServices
         $this->loanRepo->pushCriteria(app(RequestCriteria::class));
         return $this->loanRepo->meList($this->with)->paginate($perPage);
     }
+
+    public function approve($id) {
+        return $this->loanRepo->approve($id);
+    }
 }

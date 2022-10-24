@@ -14,14 +14,6 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
-    /** @var UserRepository  */
-    protected $repository;
-
-    public function __construct(UserRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
     /**
      * @param Request $request
      * @return JsonResponse|array

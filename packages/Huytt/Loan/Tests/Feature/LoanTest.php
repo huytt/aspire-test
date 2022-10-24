@@ -45,7 +45,7 @@ class LoanTest extends TestCase
             ->withHeader('Authorization', 'Bearer '. $token)
             ->json('post', 'api/v1/loans/me/store', $payload);
 
-        echo json_encode($reponse)."\n";
+//        echo json_encode($reponse)."\n";
         $reponse->assertStatus(201);
 
         $id = $reponse->decodeResponseJson()['data']['id'];
@@ -87,4 +87,24 @@ class LoanTest extends TestCase
             ]
         ]);
     }
+
+//    public function testApprove() {
+//        $token = $this->authTest->testAdminUserAuth();
+//        $info = $this->testStore();
+//        $id = $info['id'];
+////
+////        $reponse = $this
+////            ->json('put', "api/v1/loans/admin/approve/$id");
+////
+////        echo json_encode($reponse)."\n";
+////        $reponse->assertStatus(401);
+//
+//
+//        $reponse = $this
+//            ->withHeader('Authorization', 'Bearer '. $token)
+//            ->json('put', "api/v1/loans/admin/approve/$id");
+//
+//        $reponse->assertStatus(204);
+//
+//    }
 }

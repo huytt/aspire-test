@@ -54,4 +54,19 @@ class LoanController extends Controller
     {
         return core()->success(Response::HTTP_OK, new BaseCoreCollection($this->loanService->meList()));
     }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\Response|JsonResponse
+     */
+    public function approve($id): \Illuminate\Http\Response|JsonResponse
+    {
+        try {
+            $this->loanService->approve($id);
+            return response()->noContent();
+        } catch (\Exception $e) {
+            return core()->error($e->getCode(), $e->getCode(), $e->getMessage());
+        }
+
+    }
 }

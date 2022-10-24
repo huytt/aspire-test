@@ -10,4 +10,11 @@ Route::group(['prefix' => 'api/v1'], function () {
         });
     });
 
+    Route::group(['prefix' => 'loans/admin'], function () {
+        Route::group(['middleware' => ['auth:admin-api', 'jwt.auth']], function () {
+            Route::put('/approve/{id}', [\Huytt\Loan\Http\Controllers\LoanController::class, 'approve']);
+        });
+
+    });
+
 });
