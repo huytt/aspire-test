@@ -12,8 +12,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "prettus/l5-repository": "^2.8",
-        "tymon/jwt-auth": "*",
-      "ext-http": "*"
+        "tymon/jwt-auth": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
