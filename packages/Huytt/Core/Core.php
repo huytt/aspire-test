@@ -102,6 +102,6 @@ class Core
                 'message' => ($message) ? __($message) : ''
             ],
             'status' => $code
-        ], is_numeric($code) ? $code : 400);
+        ], is_numeric($code) && $code ? $code : 400);
     }
 }

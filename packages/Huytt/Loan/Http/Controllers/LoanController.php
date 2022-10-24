@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Huytt\Core\Http\Transformers\BaseCoreCollection;
 use Huytt\Core\Repository\Criteria\RequestCriteria;
 use Huytt\Loan\Http\Requests\LoanCreateRequest;
+use Huytt\Loan\Http\Requests\RepaymentRequest;
 use Huytt\Loan\Repositories\LoanRepository;
 use Huytt\Loan\Services\LoanServices;
 use Illuminate\Http\JsonResponse;
@@ -63,6 +64,22 @@ class LoanController extends Controller
     {
         try {
             $this->loanService->approve($id);
+            return response()->noContent();
+        } catch (\Exception $e) {
+            return core()->error($e->getCode(), $e->getCode(), $e->getMessage());
+        }
+
+    }
+
+    /**
+     * @param $scheduleId
+     * @param RepaymentRequest $request
+     * @return \Illuminate\Http\Response|JsonResponse
+     */
+    public function repayment($scheduleId, RepaymentRequest $request): \Illuminate\Http\Response|JsonResponse
+    {
+        try {
+            $this->loanService->repayment($scheduleId, $request->get('amount'));
             return response()->noContent();
         } catch (\Exception $e) {
             return core()->error($e->getCode(), $e->getCode(), $e->getMessage());
